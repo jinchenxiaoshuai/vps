@@ -231,3 +231,120 @@ bash ssr.sh
 cat /etc/hosts.deny
 cat /etc/hosts.deny | grep -v ^# | wc -l
 vim /etc/hosts.deny
+test ssr.sh
+bash ssr.sh
+ls -a
+git status
+git branch
+git add .ssr.sh
+git add .ssh
+cat .tcshrc
+cat .bash_profile 
+cat .bashrc 
+ls
+ls -a
+cat .bash_history 
+ls -a
+cat .bash_logout 
+cat .pki
+cd .pki
+ls
+ls -a
+nssdb
+cat nssdb
+cd nssdb
+ls -a
+cd
+cd .ssh
+ls -a
+cs 
+cd 
+git add .ssh
+git commit -m "6.11"
+git branch
+git push github master
+git status
+ls -a
+cat .tcshrc 
+vim README.md 
+cat README.md 
+vim README.md 
+cat README.md 
+git push github master
+git add .
+git commit
+git commit -m 6.11
+git push github master
+cd ..
+ls
+cd etc
+ls
+shadowsocksr
+cd shadowsocksr
+ls
+vim user-config.json 
+cd shadow
+cd ..
+cd shadow
+ls
+cd shadow
+ls
+vim shadow
+vim shadow-
+cd ...
+cd .
+cd ..
+ls
+cd bin
+ls
+cd ..
+ls
+cd boot
+ls
+cd ..
+cd dev
+ls
+cd ..
+cd home
+ls
+cd ..
+ cd lib
+ls
+cd ../usr
+ls
+cd etc
+ls
+cd ..
+cd 
+ls
+bash ssr.sh
+cat /etc/hosts.deny | grep -v ^# | wc -l
+ls
+cat secure_ssh.sh
+stat /etc/hosts.deny
+vim /var/log/secure
+cat secure_ssh.sh
+/usr/local/bin/black.list
+vim /usr/local/bin/black.list
+stat /usr/local/bin/black.list
+cat /usr/local/bin/black.list | wc -l
+ipconfig
+ip
+ip --help
+ip -br
+ip -h
+ip -d
+clear
+ping 149.28.231.136
+ping 127.0.0.1
+ping 127.0.0.1 -n 10
+ping --help
+ping 127.0.0.1 -c 10
+bash ssr.sh
+vim /etc/hosts.allow
+vim /etc/hosts.deny
+vim /etc/hosts.allow
+test
+test --help
+bash
+ping www.getpostman.com
