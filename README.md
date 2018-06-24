@@ -1,9 +1,10 @@
 # vps
-当前VPS的IP是45.77.237.113.
 # 
 当前VPS信息：
 
 租赁于vultr，位于Sydney，1024MB RAM，25GB SSD，1000GB流量。
+
+当前VPS的IP是45.77.237.113.
 
 加密：aes-256-cfb，预计于6.25起使用chacha20
 
