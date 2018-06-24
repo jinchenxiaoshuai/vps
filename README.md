@@ -5,10 +5,8 @@
 
 租赁于vultr，位于Sydney，1024MB RAM，25GB SSD，1000GB流量。
 
-加密：aes-256-cfb
-
+加密：aes-256-cfb，预计于6.25起使用chacha20
 协议：auth_sha1_v4_compatible
-
 混淆：tls1.2_ticket_auth_compatible
 #
 Ports now in use:
