@@ -1,5 +1,4 @@
 # vps
-# 
 当前VPS信息：
 
 租赁于vultr，位于Sydney，1024MB RAM，25GB SSD，1000GB流量。
