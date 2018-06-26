@@ -5,7 +5,7 @@
 
 当前VPS的IP是45.77.237.113.
 
-加密：aes-256-cfb，预计于6.25起使用chacha20
+加密：chacha20
 
 协议：auth_sha1_v4
 
