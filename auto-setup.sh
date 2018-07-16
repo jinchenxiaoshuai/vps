@@ -11,7 +11,7 @@ export PATH
 #=================================================
 
 #	download ssr.sh
-if [ ! -f "/root/test.sh" ];then
+if [ ! -f "/root/ssr.sh" ];then
 wget -N --no-check-certificate https://softs.fun/Bash/ssr.sh && chmod +x ssr.sh
 # else
 # echo "ssr.sh已存在，不再下载。"
@@ -1462,13 +1462,171 @@ menu_status(){
 	fi
 }
 
+# 自定义变量
+index_user=0
+user_amount=4
+port_in_use=( 9567 10003 10009 10013 )
+pwd_of_user=( "lutaoyu" "geng" "jinchen" "chenxin" )
+
+# 改编函数
 
 
+# 设置 配置信息
+Set_config_port_auto(){
+	while true
+	do
+	ssr_port=${port_in_use[index_user]}
+	expr ${ssr_port} + 0 &>/dev/null
+	if [[ $? == 0 ]]; then
+		if [[ ${ssr_port} -ge 1 ]] && [[ ${ssr_port} -le 65535 ]]; then
+			echo && echo ${Separator_1} && echo -e "	端口 : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
+			break
+		else
+			echo -e "${Error} 请输入正确的数字(1-65535)"
+		fi
+	else
+		echo -e "${Error} 请输入正确的数字(1-65535)"
+	fi
+	done
+}
+Set_config_password_auto(){
+	ssr_password=${pwd_of_user[index_user]}
+	((index_user=index_user+1))
+	echo && echo ${Separator_1} && echo -e "	密码 : ${Green_font_prefix}${ssr_password}${Font_color_suffix}" && echo ${Separator_1} && echo
+}
+Set_config_method_auto(){
+	ssr_method="chacha20"
+	echo && echo ${Separator_1} && echo -e "	加密 : ${Green_font_prefix}${ssr_method}${Font_color_suffix}" && echo ${Separator_1} && echo
+}
+Set_config_protocol_auto(){
+	ssr_protocol="auth_sha1_v4"
+	echo && echo ${Separator_1} && echo -e "	协议 : ${Green_font_prefix}${ssr_protocol}${Font_color_suffix}" && echo ${Separator_1} && echo
+	if [[ ${ssr_protocol} != "origin" ]]; then
+		if [[ ${ssr_protocol} == "auth_sha1_v4" ]]; then
+			ssr_protocol_yn="y"
+			[[ $ssr_protocol_yn == [Yy] ]] && ssr_protocol=${ssr_protocol}"_compatible"
+			echo
+		fi
+	fi
+}
+Set_config_obfs_auto(){
+	ssr_obfs="tls1.2_ticket_auth"
+	echo && echo ${Separator_1} && echo -e "	混淆 : ${Green_font_prefix}${ssr_obfs}${Font_color_suffix}" && echo ${Separator_1} && echo
+	if [[ ${ssr_obfs} != "plain" ]]; then
+			ssr_obfs_yn="y"
+			[[ $ssr_obfs_yn == [Yy] ]] && ssr_obfs=${ssr_obfs}"_compatible"
+			echo
+	fi
+}
+Set_config_protocol_param_auto(){
+	while true
+	do
+	ssr_protocol_param="" && echo && break
+	expr ${ssr_protocol_param} + 0 &>/dev/null
+	if [[ $? == 0 ]]; then
+		if [[ ${ssr_protocol_param} -ge 1 ]] && [[ ${ssr_protocol_param} -le 9999 ]]; then
+			echo && echo ${Separator_1} && echo -e "	设备数限制 : ${Green_font_prefix}${ssr_protocol_param}${Font_color_suffix}" && echo ${Separator_1} && echo
+			break
+		else
+			echo -e "${Error} 请输入正确的数字(1-9999)"
+		fi
+	else
+		echo -e "${Error} 请输入正确的数字(1-9999)"
+	fi
+	done
+}
+Set_config_speed_limit_per_con_auto(){
+	while true
+	do
+	ssr_speed_limit_per_con=0 && echo && break
+	expr ${ssr_speed_limit_per_con} + 0 &>/dev/null
+	if [[ $? == 0 ]]; then
+		if [[ ${ssr_speed_limit_per_con} -ge 1 ]] && [[ ${ssr_speed_limit_per_con} -le 131072 ]]; then
+			echo && echo ${Separator_1} && echo -e "	单线程限速 : ${Green_font_prefix}${ssr_speed_limit_per_con} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
+			break
+		else
+			echo -e "${Error} 请输入正确的数字(1-131072)"
+		fi
+	else
+		echo -e "${Error} 请输入正确的数字(1-131072)"
+	fi
+	done
+}
+Set_config_speed_limit_per_user_auto(){
+	while true
+	do
+	ssr_speed_limit_per_user=0 && echo && break
+	expr ${ssr_speed_limit_per_user} + 0 &>/dev/null
+	if [[ $? == 0 ]]; then
+		if [[ ${ssr_speed_limit_per_user} -ge 1 ]] && [[ ${ssr_speed_limit_per_user} -le 131072 ]]; then
+			echo && echo ${Separator_1} && echo -e "	端口总限速 : ${Green_font_prefix}${ssr_speed_limit_per_user} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
+			break
+		else
+			echo -e "${Error} 请输入正确的数字(1-131072)"
+		fi
+	else
+		echo -e "${Error} 请输入正确的数字(1-131072)"
+	fi
+	done
+}
+Set_config_all_auto(){
+	Set_config_port_auto
+	Set_config_password_auto
+	Set_config_method_auto
+	Set_config_protocol_auto
+	Set_config_obfs_auto
+	Set_config_protocol_param_auto
+	Set_config_speed_limit_per_con_auto
+	Set_config_speed_limit_per_user_auto
+}
+# 切换端口模式
+Port_mode_switching_auto(){
+	SSR_installation_status
+	if [[ -z "${now_mode}" ]]; then
+		port=`${jq_file} '.server_port' ${config_user_file}`
+		Set_config_all_auto
+		Write_configuration_many
+		Del_iptables
+		Add_iptables
+		Save_iptables
+		Restart_SSR
+	else
+		user_total=`${jq_file} '.port_password' ${config_user_file} | sed '$d' | sed "1d" | wc -l`
+		for((integer = 1; integer <= ${user_total}; integer++))
+		do
+			port=`${jq_file} '.port_password' ${config_user_file} | sed '$d' | sed "1d" | awk -F ":" '{print $1}' | sed -n "${integer}p" | sed -r 's/.*\"(.+)\".*/\1/'`
+			Del_iptables
+		done
+		Set_config_all_auto
+		Write_configuration
+		Add_iptables
+		Restart_SSR
+	fi
+}
+
+# 添加 多端口用户配置
+Add_multi_port_user_auto(){
+	Set_config_port_auto
+	Set_config_password_auto
+	sed -i "8 i \"        \"${ssr_port}\":\"${ssr_password}\"," ${config_user_file}
+	sed -i "8s/^\"//" ${config_user_file}
+	Add_iptables
+	Save_iptables
+	echo -e "${Info} 多端口用户添加完成 ${Green_font_prefix}[端口: ${ssr_port} , 密码: ${ssr_password}]${Font_color_suffix} "
+}
 
 # “主函数”部分
 
+timestamp=`date +%s`	#system timestamp
+filepath=/root/auto-setup.sh
+filetimestamp=`stat -c %Z $filepath`	#file last modified time
+time_diff=$[$timestamp - $filetimestamp]	#delta difference
+
 check_sys
 [[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
+
+if [ $time_diff -gt 60 ];then
+
 echo -e "  ShadowsocksR 一键管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   ---- Toyo | doub.io/ss-jc42 ----
 
@@ -1543,4 +1701,13 @@ case "$num" in
 	echo -e "${Error} 请输入正确的数字 [1-15]"
 	;;
 esac
-!
+
+else
+
+Port_mode_switching_auto
+while [ $index_user -lt $user_amount ]
+do
+	Add_multi_port_user_auto
+done
+fi
+

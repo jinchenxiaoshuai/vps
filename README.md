@@ -18,6 +18,10 @@ Ports now in use:
 
 10003	for Mr. Geng
 
+10005	for Mr. Wu
+
 10009	for Mr. Jin
 
 10013	for Mr. Chen
+
+8080	for work
