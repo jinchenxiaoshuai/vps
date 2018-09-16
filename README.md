@@ -1,9 +1,9 @@
 # vps
 当前VPS信息：
 
-租赁于vultr，位于NY，1024MB RAM，25GB SSD，1000GB流量。
+租赁于vultr，位于tokyo，512MB RAM，20GB SSD，500GB流量。
 
-当前VPS的IP是140.82.40.110.
+当前VPS的IP是45.77.128.14.
 
 加密：chacha20
 
@@ -18,6 +18,8 @@ Ports now in use:
 
 These ports are not working temporarily.
 9567	for Mr. Lu
+
+10002	for Mr. Men
 
 10003	for Mr. Geng
 
