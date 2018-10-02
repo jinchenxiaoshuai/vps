@@ -1,9 +1,9 @@
 # vps
 当前VPS信息：
 
-租赁于vultr，位于NY，512MB RAM，20GB SSD，500GB流量。
+租赁于vultr，位于JP，512MB RAM，20GB SSD，500GB流量。
 
-当前VPS的IP是149.28.40.118.
+当前VPS的IP是45.32.52.171.
 
 加密：chacha20
 
