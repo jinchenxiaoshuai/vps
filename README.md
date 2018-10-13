@@ -3,7 +3,7 @@
 
 租赁于vultr，位于JP，512MB RAM，20GB SSD，500GB流量。
 
-当前VPS的IP是45.32.52.171.
+当前VPS的IP是198.13.35.70.
 
 加密：chacha20
 
